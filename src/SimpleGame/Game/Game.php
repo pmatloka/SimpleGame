@@ -45,7 +45,7 @@ class Game
         Output::writeln('Write winning token position. For example: 1,2');
         Output::writeln(sprintf('Width should be between: %s and %s', 1, $this->board->getWidth()));
         Output::writeln(sprintf('Height should be between: %s and %s', 1, $this->board->getHeight()));
-        $this->printBoard();
+        Output::write($this->board);
 
         $this->timer->start();
 
@@ -67,7 +67,7 @@ class Game
                 Output::writeln(sprintf('Missing please try again'));
             }
 
-            $this->printBoard();
+            Output::write($this->board);
 
         } while($this->timer->checkTime() && $this->maxTry > 0);
 
@@ -83,11 +83,6 @@ class Game
         $this->maxTry--;
 
         return $this->player->move($this->board, $lineArr[0] - 1, $lineArr[1] - 1);
-    }
-
-    protected function printBoard()
-    {
-        Output::write($this->board);
     }
 
     /**

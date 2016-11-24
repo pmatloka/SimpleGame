@@ -11,7 +11,7 @@ use SimpleGame\Timer\Timer;
 use SimpleGame\Token\Token;
 
 $game = new Game(
-    new Board(Token::class, 5, 4),
+    new Board(Token::class,  5, 4),
     new Player(),
     5,
     new Timer(60, 'S')

@@ -12,4 +12,8 @@ interface TokenInterface
     public function changeSide();
 
     public function getSide();
+
+    public function isWinning();
+
+    public function setIsWinning($isWinning);
 }

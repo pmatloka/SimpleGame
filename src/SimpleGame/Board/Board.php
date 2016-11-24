@@ -3,7 +3,6 @@
 namespace SimpleGame\Board;
 
 use SimpleGame\Token\TokenInterface;
-use SimpleGame\Token\WinningToken;
 
 class Board implements BoardInterface
 {
@@ -24,6 +23,9 @@ class Board implements BoardInterface
 
     public function __construct($tokenClass, $width, $height)
     {
+        if (!new $tokenClass instanceof TokenInterface) {
+            throw new \RuntimeException('TokenClass must implement TokenInterface');
+        }
         $this->tokenClass = $tokenClass;
         $this->width = $width;
         $this->height = $height;
@@ -36,7 +38,7 @@ class Board implements BoardInterface
      */
     public function checkIsWinningToken(TokenInterface $token)
     {
-        if ($token instanceof WinningToken) {
+        if ($token->isWinning()) {
 
             return true;
         }
@@ -54,7 +56,9 @@ class Board implements BoardInterface
                 $this->board[$w][$h] = new $this->tokenClass;
             }
         }
-        $this->board[$randomWidth][$randomHeight] = new WinningToken();
+        /** @var TokenInterface $token */
+        $token = $this->board[$randomWidth][$randomHeight];
+        $token->setIsWinning(true);
     }
 
     public function getHeight()
